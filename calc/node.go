@@ -1,6 +1,8 @@
 package calc
 
-import "github.com/merisho/calculator/calc/tokens"
+import (
+    "github.com/merisho/calculator/calc/tokens"
+)
 
 func NewNode(op tokens.Operator, val ...int64) *Node {
     v := int64(0)
@@ -36,23 +38,22 @@ func (n *Node) PopChild() *Node {
 }
 
 func (n *Node) Calc() int64 {
-    res := n.val
-    for i := 0; i < len(n.children); i++ {
-        c := n.children[i]
-        if len(c.children) == 0 {
-            res = c.Operator().Apply(res, c.val)
-        } else {
-            res += c.Calc()
-        }
+    return int64(n.op.Sign()) * n.calc()
+}
+
+func (n *Node) calc() int64 {
+    if len(n.children) == 0 {
+        return n.val
     }
 
-    return int64(n.op.Sign()) * res
+    var res int64
+    for _, c := range n.children {
+        res = c.Operator().Apply(res, c.calc())
+    }
+
+    return res
 }
 
 func (n *Node) Operator() tokens.Operator {
     return n.op
-}
-
-func (n *Node) signedVal() int64 {
-    return int64(n.op.Sign()) * n.val
 }

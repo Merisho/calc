@@ -34,3 +34,14 @@ func (ts *NodeTestSuite) TestSequentialDivision() {
 
     ts.EqualValues(2, r.Calc())
 }
+
+func (ts *NodeTestSuite) TestNegativeParenthesis() {
+    r := NewNode("+")
+    p := NewNode("-")
+    p.PushChild(NewNode("+", 2))
+    p.PushChild(NewNode("+", 3))
+
+    r.PushChild(p)
+
+    ts.EqualValues(-5, r.Calc())
+}
