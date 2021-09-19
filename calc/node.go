@@ -42,11 +42,7 @@ func (n *Node) Calc() int64 {
 }
 
 func (n *Node) calc() int64 {
-    if len(n.children) == 0 {
-        return n.val
-    }
-
-    var res int64
+    res := n.val
     for _, c := range n.children {
         res = c.Operator().Apply(res, c.calc())
     }
