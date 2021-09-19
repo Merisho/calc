@@ -1,9 +1,12 @@
-package calc
+package bench
 
-import "testing"
+import (
+    "github.com/merisho/calculator/calc"
+    "testing"
+)
 
 func BenchmarkCalcSinglePriority(b *testing.B) {
-    c := NewCalc()
+    c := calc.NewCalc()
     b.ResetTimer()
 
     for i := 0; i < b.N; i++ {
@@ -12,7 +15,7 @@ func BenchmarkCalcSinglePriority(b *testing.B) {
 }
 
 func BenchmarkCalcMultiPriority(b *testing.B) {
-    c := NewCalc()
+    c := calc.NewCalc()
     b.ResetTimer()
 
     for i := 0; i < b.N; i++ {
@@ -21,7 +24,7 @@ func BenchmarkCalcMultiPriority(b *testing.B) {
 }
 
 func BenchmarkCalcComplex(b *testing.B) {
-    c := NewCalc()
+    c := calc.NewCalc()
 
     b.ResetTimer()
 
